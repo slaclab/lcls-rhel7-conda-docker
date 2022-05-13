@@ -1,7 +1,5 @@
 # lcls-rhel7-conda-docker
 
-# lcls-rhel6-conda-docker
-
 The Docker image described in this repository aims replicate an LCLS production RHEL7 machines for environment build and test. While resolved conda environments are largely transferable, there are some instances of virtual packages that may break a packed environment. [Virtual packages](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-virtual.html) include `__cuda`, `__osx`, `__glibc`, `__linux`, `__unix`, `__win`. Of particular importance to our conda environment builds is the `glibc` version. 
 
 The image requires mounting of an environment file to `/tmp/environment.yml`, mounting of the repository to `/tmp/project`, mounting of a testing script to `/tmp/run-test.sh`, and setting of the environment variable `ENVIRONMENT_NAME`. 
