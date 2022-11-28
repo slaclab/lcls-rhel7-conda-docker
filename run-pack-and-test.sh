@@ -7,7 +7,7 @@ set -e
 source /root/.bashrc 
 
 # create an dpack environment
-conda env create -f $ENVIRONMENT_FILE
+mamba env create -f $ENVIRONMENT_FILE
 conda pack -n $ENVIRONMENT_NAME --ignore-missing-files --output $HOME/$ENVIRONMENT_NAME.tar.gz
 
 # unpack 
