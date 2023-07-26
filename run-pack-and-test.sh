@@ -11,7 +11,7 @@ mamba env create -f $ENVIRONMENT_FILE
 conda pack -n $ENVIRONMENT_NAME --ignore-missing-files --output $HOME/$ENVIRONMENT_NAME.tar.gz
 
 # unpack 
-cp $HOME/$ENVIRONMENT_NAME.tar.gz /tmp/$ENVIRONMENT_NAME.tar.gz
+mv $HOME/$ENVIRONMENT_NAME.tar.gz /tmp/$ENVIRONMENT_NAME.tar.gz
 mkdir /tmp/$ENVIRONMENT_NAME
 tar -xf /tmp/$ENVIRONMENT_NAME.tar.gz -C /tmp/$ENVIRONMENT_NAME
 source /tmp/$ENVIRONMENT_NAME/bin/activate
