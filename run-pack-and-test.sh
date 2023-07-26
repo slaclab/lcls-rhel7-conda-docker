@@ -21,3 +21,6 @@ source /tmp/$ENVIRONMENT_NAME/bin/activate
 if [[ -f "/tmp/run-test.sh" ]]; then
     bash /tmp/run-test.sh
 fi
+
+rm -rf /tmp/$ENVIRONMENT_NAME
+mv /tmp/$ENVIRONMENT_NAME.tar.gz  $HOME/$ENVIRONMENT_NAME.tar.gz
