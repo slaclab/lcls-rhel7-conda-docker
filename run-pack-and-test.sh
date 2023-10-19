@@ -7,11 +7,11 @@ set -e
 source /root/.bashrc 
 
 # create an dpack environment
-conda env create -f $ENVIRONMENT_FILE
+mamba env create -f $ENVIRONMENT_FILE
 conda pack -n $ENVIRONMENT_NAME --ignore-missing-files --output $HOME/$ENVIRONMENT_NAME.tar.gz
 
 # unpack 
-cp $HOME/$ENVIRONMENT_NAME.tar.gz /tmp/$ENVIRONMENT_NAME.tar.gz
+mv $HOME/$ENVIRONMENT_NAME.tar.gz /tmp/$ENVIRONMENT_NAME.tar.gz
 mkdir /tmp/$ENVIRONMENT_NAME
 tar -xf /tmp/$ENVIRONMENT_NAME.tar.gz -C /tmp/$ENVIRONMENT_NAME
 source /tmp/$ENVIRONMENT_NAME/bin/activate
@@ -21,3 +21,6 @@ source /tmp/$ENVIRONMENT_NAME/bin/activate
 if [[ -f "/tmp/run-test.sh" ]]; then
     bash /tmp/run-test.sh
 fi
+
+rm -rf /tmp/$ENVIRONMENT_NAME
+mv /tmp/$ENVIRONMENT_NAME.tar.gz  $HOME/$ENVIRONMENT_NAME.tar.gz
