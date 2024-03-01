@@ -26,4 +26,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: jgarrahan/lcls-rhel7-conda-docker:${{ github.event.release.tag_name }}, jgarrahan/lcls-rhel7-conda-docker:latest
+          tags: tidacs/lcls-rhel7-conda-docker:${{ github.event.release.tag_name }}, tidacs/lcls-rhel7-conda-docker:latest
