@@ -4,18 +4,20 @@ ENVIRONMENT_FILE=$1
 # exit when any command fails
 set -e
 
-source /root/.bashrc 
+umask 0022
+
+export CONDA_PKGS_DIRS=/tmp/pkgs
+export MAMBA_ROOT_PREFIX=/tmp/mamba-root
 
 # create an dpack environment
-mamba env create -f $ENVIRONMENT_FILE
-conda pack -n $ENVIRONMENT_NAME --ignore-missing-files --output $HOME/$ENVIRONMENT_NAME.tar.gz
+mamba env create -y -f "$ENVIRONMENT_FILE" --prefix /tmp/$ENVIRONMENT_NAME
+conda pack --prefix /tmp/$ENVIRONMENT_NAME --ignore-missing-files --output /tmp/$ENVIRONMENT_NAME.tar.gz
 
-# unpack 
-mv $HOME/$ENVIRONMENT_NAME.tar.gz /tmp/$ENVIRONMENT_NAME.tar.gz
-mkdir /tmp/$ENVIRONMENT_NAME
-tar -xf /tmp/$ENVIRONMENT_NAME.tar.gz -C /tmp/$ENVIRONMENT_NAME
-source /tmp/$ENVIRONMENT_NAME/bin/activate
-/tmp/$ENVIRONMENT_NAME/bin/conda-unpack
+# unpack
+mkdir /tmp/test_env
+tar -xf /tmp/$ENVIRONMENT_NAME.tar.gz -C /tmp/test_env
+source /tmp/test_env/bin/activate
+/tmp/test_env/bin/conda-unpack
 
 # run tests
 if [[ -f "/tmp/run-test.sh" ]]; then
@@ -23,4 +25,5 @@ if [[ -f "/tmp/run-test.sh" ]]; then
 fi
 
 rm -rf /tmp/$ENVIRONMENT_NAME
-mv /tmp/$ENVIRONMENT_NAME.tar.gz  $HOME/$ENVIRONMENT_NAME.tar.gz
+rm -rf /tmp/test_env
+mv "/tmp/$ENVIRONMENT_NAME.tar.gz" /output/
